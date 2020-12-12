@@ -5,7 +5,15 @@ description = ""
 authors = ["Justin Ho <44845829+justinho8161@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.8"
+ipykernel = "^5.4.2"
+numpy = "^1.19.4"
+pymongo = "^3.11.2"
+pandas = "^1.1.5"
+Flask = "^1.1.2"
+Flask-Bootstrap = "^3.3.7"
+sklearn = "^0.0"
+black = "^20.8b1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

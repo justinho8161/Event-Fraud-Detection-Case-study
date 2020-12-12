@@ -10,11 +10,14 @@ import json
 class EventAPIClient:
     """Realtime Events API Client"""
 
-    def __init__(self, first_sequence_number=0,
-                 api_url='https://hxobin8em5.execute-api.us-west-2.amazonaws.com/api/',
-                 api_key='vYm9mTUuspeyAWH1v-acfoTlck-tCxwTw9YfCynC',
-                 db=None,
-                 interval=30):
+    def __init__(
+        self,
+        first_sequence_number=0,
+        api_url="https://hxobin8em5.execute-api.us-west-2.amazonaws.com/api/",
+        api_key="vYm9mTUuspeyAWH1v-acfoTlck-tCxwTw9YfCynC",
+        db=None,
+        interval=30,
+    ):
         """Initialize the API client."""
         self.next_sequence_number = first_sequence_number
         self.api_url = api_url
@@ -24,29 +27,21 @@ class EventAPIClient:
 
     def save_to_database(self, row):
         """Save a data row to the database."""
-        collection = self.db['Events']
+        collection = self.db["Events"]
 
-        # with open('data.json', 'w') as outfile:
-        #     json.dump(row, outfile)
-        # outfile.close()
-        # # print("ROWWWWWWW:"+str(type(row)))
-        #
-        # testdf = pd.read_json('data.json')
-        # print("DUMP IS GOOD"+str(type(testdf)))
-        #
-        # #
         collection.insert_one(row)
-        print("Received data:\n" + repr(row) + "\n")  # replace this with your code
-
+        print("Received data:\n" + repr(row) + "\n")
 
     def get_data(self):
         """Fetch data from the API."""
-        payload = {'api_key': self.api_key,
-                   'sequence_number': self.next_sequence_number}
+        payload = {
+            "api_key": self.api_key,
+            "sequence_number": self.next_sequence_number,
+        }
         response = requests.post(self.api_url, json=payload)
         data = response.json()
-        self.next_sequence_number = data['_next_sequence_number']
-        return data['data']
+        self.next_sequence_number = data["_next_sequence_number"]
+        return data["data"]
 
     def collect(self, interval=30):
         """Check for new data from the API periodically."""
@@ -66,11 +61,8 @@ class EventAPIClient:
 def main():
     """Collect events every 30 seconds."""
 
-    # mongo_client=
-
-    client = EventAPIClient(db=MongoClient()['Fraud_Detection'])
+    client = EventAPIClient(db=MongoClient()["Fraud_Detection"])
     client.collect()
-
 
 
 if __name__ == "__main__":
