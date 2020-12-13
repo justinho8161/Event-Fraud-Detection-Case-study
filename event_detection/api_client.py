@@ -54,7 +54,7 @@ class EventAPIClient:
                     self.save_to_database(row)
             else:
                 print("No new data received.")
-            print(f"Waiting {interval} seconds...")
+            print(f"Waiting {interval} seconds...")     
             time.sleep(interval)
 
 
